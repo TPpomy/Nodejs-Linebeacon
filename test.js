@@ -41,13 +41,13 @@ app.post("/webhook", line.middleware(config), (req, res) => {
   let beaconHwid = req.body.events[0].beacon.hwid;
   let beaconType = req.body.events[0].beacon.type;
   let date = new Date(timestamp);
-  const testchack = req.rawHeaders[1];
+  let testchack = req.headers["user-agent"];
 
   if (!testchack) {
     return res.status(404).send({ error: true, message: "NO data" });
   } else {
     let sql =
-      "INSERT INTO events(`reply_token`, `events_type`,`events_mode`,`timestamp`,`source_type`,`source_userid`,`beacon_hwid`,`beacon_type`) VALUES (?,?,?,?,?,?,?,?)";
+      "INSERT INTO events(`reply_token`, `events_type`,`events_mode`,`timestamp`,`source_type`,`source_userid`,`beacon_hwid`,`beacon_type`,`user_agent`) VALUES (?,?,?,?,?,?,?,?,?)";
     if (
       !replyToken ||
       !eventsType ||
@@ -56,7 +56,8 @@ app.post("/webhook", line.middleware(config), (req, res) => {
       !sourceType ||
       !sourceUserid ||
       !beaconHwid ||
-      !beaconType
+      !beaconType ||
+      !testchack
     ) {
       return res.status(500).send({ error: true, message: "NO data" });
     } else {
@@ -71,6 +72,7 @@ app.post("/webhook", line.middleware(config), (req, res) => {
           sourceUserid,
           beaconHwid,
           beaconType,
+          testchack,
         ],
         (error, results, _fields) => {
           if (error) throw error;
