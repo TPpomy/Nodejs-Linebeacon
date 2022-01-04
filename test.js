@@ -89,7 +89,7 @@ app.post("/webhook", line.middleware(config), (req, res) => {
   // handle events separately
   Promise.all(
     req.body.events.map((event) => {
-      return console.log("eventkkkk", event);
+      return console.log("events", event);
     })
   )
     .finally(() => {})
