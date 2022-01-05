@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./index.js",
     "dev": "nodemon ./test.js",
-    "devnode": "nodemon ./testMongodb.js"
+    "devnode": "nodemon ./testMongodb.js",
+    "start:dev": "nodemon",
+    "tsc": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +26,7 @@
   },
   "description": "",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "typescript": "^4.5.4"
   }
 }
